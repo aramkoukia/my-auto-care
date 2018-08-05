@@ -16,7 +16,7 @@ import { AlertService, AuthenticationService, UserService } from './_services/in
 import { HomeComponent } from './home/index';
 import { LoginComponent } from './login/index';
 import { RegisterComponent } from './register/index';
-import { MatButtonModule, MatFormFieldModule, MatInputModule, MatRippleModule, MatCard, MatCardModule, MatIconModule, MatProgressSpinnerModule } from '@angular/material';
+import { MatButtonModule, MatFormFieldModule, MatInputModule, MatRippleModule, MatCard, MatCardModule, MatIconModule, MatProgressSpinnerModule, MatToolbarModule } from '@angular/material';
 
 @NgModule({
   imports: [
@@ -31,6 +31,7 @@ import { MatButtonModule, MatFormFieldModule, MatInputModule, MatRippleModule, M
     MatRippleModule,
     MatIconModule,
     MatProgressSpinnerModule,
+    MatToolbarModule,
   ],
   exports: [
     MatButtonModule,
@@ -40,6 +41,7 @@ import { MatButtonModule, MatFormFieldModule, MatInputModule, MatRippleModule, M
     MatRippleModule,
     MatIconModule,
     MatProgressSpinnerModule,
+    MatToolbarModule,
   ],
   declarations: [
     AppComponent,
