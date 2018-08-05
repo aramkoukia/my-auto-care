@@ -1,40 +1,51 @@
-import { NgModule }       from '@angular/core';
-import { BrowserModule }  from '@angular/platform-browser';
-import { FormsModule }    from '@angular/forms';
-import { HttpClientModule }    from '@angular/common/http';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { NgModule } from '@angular/core';
+import { BrowserModule } from '@angular/platform-browser';
+import { FormsModule } from '@angular/forms';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 
-import { HttpClientInMemoryWebApiModule } from 'angular-in-memory-web-api';
-import { InMemoryDataService }  from './in-memory-data.service';
+// used to create fake backend
+import { fakeBackendProvider } from './_helpers/index';
 
-import { AppRoutingModule }     from './app-routing.module';
+import { AppComponent } from './app.component';
+import { routing } from './app.routing';
 
-import { AppComponent }         from './app.component';
-import { LoginComponent }   from './login/login.component';
-import { RegisterComponent }  from './register/register.component';
-import { HomeComponent }      from './home/home.component';
+import { AlertComponent } from './_directives/index';
+import { AuthGuard } from './_guards/index';
+import { JwtInterceptor } from './_helpers/index';
+import { AlertService, AuthenticationService, UserService } from './_services/index';
+import { HomeComponent } from './home/index';
+import { LoginComponent } from './login/index';
+import { RegisterComponent } from './register/index';
 
 @NgModule({
   imports: [
     BrowserModule,
     FormsModule,
-    AppRoutingModule,
     HttpClientModule,
-    BrowserAnimationsModule,
-
-    // The HttpClientInMemoryWebApiModule module intercepts HTTP requests
-    // and returns simulated server responses.
-    // Remove it when a real server is ready to receive requests.
-    HttpClientInMemoryWebApiModule.forRoot(
-      InMemoryDataService, { dataEncapsulation: false }
-    )
+    routing
   ],
   declarations: [
     AppComponent,
-    LoginComponent,
-    RegisterComponent,
+    AlertComponent,
     HomeComponent,
+    LoginComponent,
+    RegisterComponent
   ],
-  bootstrap: [ AppComponent ]
+  providers: [
+    AuthGuard,
+    AlertService,
+    AuthenticationService,
+    UserService,
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: JwtInterceptor,
+      multi: true
+    },
+
+    // provider used to create fake backend
+    fakeBackendProvider
+  ],
+  bootstrap: [AppComponent]
 })
+
 export class AppModule { }
