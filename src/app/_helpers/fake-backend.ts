@@ -1,12 +1,16 @@
 import { Injectable } from '@angular/core';
 import { HttpRequest, HttpResponse, HttpHandler, HttpEvent, HttpInterceptor, HTTP_INTERCEPTORS } from '@angular/common/http';
-import { Observable } from 'rxjs/Observable';
-import 'rxjs/add/observable/of';
-import 'rxjs/add/observable/throw';
-import 'rxjs/add/operator/delay';
-import 'rxjs/add/operator/mergeMap';
-import 'rxjs/add/operator/materialize';
-import 'rxjs/add/operator/dematerialize';
+import { Observable, Subject, asapScheduler, pipe, of, from, interval, merge, fromEvent } from 'rxjs';
+import { TestScheduler } from 'rxjs/testing';
+import { map, filter, scan } from 'rxjs/operators';
+import { webSocket } from 'rxjs/webSocket';
+import { ajax } from 'rxjs/ajax';
+
+//import 'rxjs/add/observable/throw';
+//import 'rxjs/add/operator/delay';
+//import 'rxjs/add/operator/mergeMap';
+//import 'rxjs/add/operator/materialize';
+//import 'rxjs/add/operator/dematerialize';
 
 @Injectable()
 export class FakeBackendInterceptor implements HttpInterceptor {
